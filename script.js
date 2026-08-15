@@ -4,7 +4,11 @@ const searchButton = document.querySelector("button");
 
 const weatherInfo = document.querySelector(".weather-info");
 
-const 
+const cityElement = document.querySelector("#city-resume");
+const temperatureElement = document.querySelector("#temperature");
+const conditionElement = document.querySelector("#condition");
+const humidityElement = document.querySelector("#humidity");
+const sensationElement = document.querySelector("#sensation");
 
 async function searchWeather() {
   const city = cityInput.value;
@@ -37,9 +41,41 @@ async function searchWeather() {
   const sensation = current.apparent_temperature;
   const weatherCode = current.weather_code;
 
+  const condition = getWeatherCondition(weatherCode);
+
   console.log(
     `a temperatura é: ${temperature}°, a humidade é: ${humidity}, a sensação termica é: ${sensation}° e o codigo do clime é: ${weatherCode}.`,
   );
+
+  cityElement.innerText = `Cidade: ${location.name}`;
+  temperatureElement.innerText = `Temperatura: ${temperature} °C`;
+  sensationElement.innerText = `Sensação térmica: ${sensation} °C`;
+  humidityElement.innerText = `Umidade: ${humidity}%`;
+  conditionElement.innerText = `Condição: ${condition}`;
+
+  weatherInfo.classList.remove("hidden");
+}
+
+function getWeatherCondition(code) {
+  if (code === 0) {
+    return "Céu limpo";
+  } else if (code === 1) {
+    return "Predominantemente limpo";
+  } else if (code === 2) {
+    return "Parcialmente nublado";
+  } else if (code === 3) {
+    return "Nublado";
+  } else if (code === 45 || code === 48) {
+    return "Nevoeiro";
+  } else if (code === 51 || code === 53 || code === 55) {
+    return "Garoa";
+  } else if (code === 61 || code === 63 || code === 65) {
+    return "Chuva";
+  } else if (code === 80 || code === 81 || code === 82) {
+    return "Pancadas de chuva";
+  } else {
+    return "Condição desconhecida";
+  }
 }
 
 searchButton.addEventListener("click", searchWeather);
