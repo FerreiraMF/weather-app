@@ -15,6 +15,8 @@ async function searchWeather() {
 
   if (city === "") {
     alert("Digite o nome de uma cidade.");
+    cityInput.value = "";
+    cityInput.focus();
     return;
   }
 
@@ -66,6 +68,9 @@ async function searchWeather() {
   } catch (error) {
     console.error(error);
     alert("Não foi possível buscar os dados do clima");
+  } finally {
+    cityInput.value = "";
+    cityInput.focus();
   }
 }
 
@@ -90,5 +95,11 @@ function getWeatherCondition(code) {
     return "Condição desconhecida";
   }
 }
+
+cityInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    searchWeather();
+  }
+});
 
 searchButton.addEventListener("click", searchWeather);
