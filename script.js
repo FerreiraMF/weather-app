@@ -11,49 +11,62 @@ const humidityElement = document.querySelector("#humidity");
 const sensationElement = document.querySelector("#sensation");
 
 async function searchWeather() {
-  const city = cityInput.value;
-  console.log(city);
+  const city = cityInput.value.trim();
 
-  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
-  console.log(url);
+  if (city === "") {
+    alert("Digite o nome de uma cidade.");
+    return;
+  }
 
-  const response = await fetch(url);
+  try {
+    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
-  const data = await response.json();
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Erro ao buscar localização");
+    }
 
-  const location = data.results[0];
+    const data = await response.json();
 
-  const latitude = location.latitude;
-  const longitude = location.longitude;
+    if (!data.results || data.results.length === 0) {
+      alert("Cidade não encontrada.");
+      return;
+    }
 
-  const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code`;
-  console.log(weatherUrl);
+    const location = data.results[0];
 
-  const weatherResponse = await fetch(weatherUrl);
+    const latitude = location.latitude;
+    const longitude = location.longitude;
 
-  const weatherData = await weatherResponse.json();
-  console.log(weatherData);
+    const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code`;
 
-  const current = weatherData.current;
+    const weatherResponse = await fetch(weatherUrl);
+    if (!weatherResponse.ok) {
+      throw new Error("Erro ao buscar clima.");
+    }
 
-  const temperature = current.temperature_2m;
-  const humidity = current.relative_humidity_2m;
-  const sensation = current.apparent_temperature;
-  const weatherCode = current.weather_code;
+    const weatherData = await weatherResponse.json();
 
-  const condition = getWeatherCondition(weatherCode);
+    const current = weatherData.current;
 
-  console.log(
-    `a temperatura é: ${temperature}°, a humidade é: ${humidity}, a sensação termica é: ${sensation}° e o codigo do clime é: ${weatherCode}.`,
-  );
+    const temperature = current.temperature_2m;
+    const humidity = current.relative_humidity_2m;
+    const sensation = current.apparent_temperature;
+    const weatherCode = current.weather_code;
 
-  cityElement.innerText = `Cidade: ${location.name}`;
-  temperatureElement.innerText = `Temperatura: ${temperature} °C`;
-  sensationElement.innerText = `Sensação térmica: ${sensation} °C`;
-  humidityElement.innerText = `Umidade: ${humidity}%`;
-  conditionElement.innerText = `Condição: ${condition}`;
+    const condition = getWeatherCondition(weatherCode);
 
-  weatherInfo.classList.remove("hidden");
+    cityElement.innerText = `Cidade: ${location.name}`;
+    temperatureElement.innerText = `Temperatura: ${temperature} °C`;
+    sensationElement.innerText = `Sensação térmica: ${sensation} °C`;
+    humidityElement.innerText = `Umidade: ${humidity}%`;
+    conditionElement.innerText = `Condição: ${condition}`;
+
+    weatherInfo.classList.remove("hidden");
+  } catch (error) {
+    console.error(error);
+    alert("Não foi possível buscar os dados do clima");
+  }
 }
 
 function getWeatherCondition(code) {
