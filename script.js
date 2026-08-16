@@ -21,6 +21,9 @@ async function searchWeather() {
     return;
   }
 
+  searchButton.innerText = "Buscando...";
+  searchButton.disabled = true;
+
   try {
     const url = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
@@ -75,6 +78,8 @@ async function searchWeather() {
   } finally {
     cityInput.value = "";
     cityInput.focus();
+    searchButton.innerText = "Buscar Clima";
+    searchButton.disabled = false;
   }
 }
 
