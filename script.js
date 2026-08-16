@@ -24,6 +24,8 @@ async function searchWeather() {
   searchButton.innerText = "Buscando...";
   searchButton.disabled = true;
 
+  weatherInfo.classList.add("hidden");
+
   try {
     const url = `https://geocoding-api.open-meteo.com/v1/search?name=${city}`;
 
@@ -64,12 +66,12 @@ async function searchWeather() {
 
     const weatherIcon = getWeatherIcon(weatherCode);
 
-    cityElement.innerText = `${location.name}`;
+    cityElement.innerText = location.name;
     weatherIconElement.innerText = weatherIcon;
     temperatureElement.innerText = `${temperature} °C`;
     sensationElement.innerText = `${sensation} °C`;
     humidityElement.innerText = `${humidity}%`;
-    conditionElement.innerText = `${condition}`;
+    conditionElement.innerText = condition;
 
     weatherInfo.classList.remove("hidden");
   } catch (error) {
