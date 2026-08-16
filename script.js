@@ -5,6 +5,7 @@ const searchButton = document.querySelector("button");
 const weatherInfo = document.querySelector(".weather-info");
 
 const cityElement = document.querySelector("#city-resume");
+const weatherIconElement = document.querySelector("#weather-icon");
 const temperatureElement = document.querySelector("#temperature");
 const conditionElement = document.querySelector("#condition");
 const humidityElement = document.querySelector("#humidity");
@@ -58,11 +59,14 @@ async function searchWeather() {
 
     const condition = getWeatherCondition(weatherCode);
 
+    const weatherIcon = getWeatherIcon(weatherCode);
+
     cityElement.innerText = `${location.name}`;
-    temperatureElement.innerText = ` ${temperature} °C`;
-    sensationElement.innerText = ` ${sensation} °C`;
-    humidityElement.innerText = ` ${humidity}%`;
-    conditionElement.innerText = ` ${condition}`;
+    weatherIconElement.innerText = weatherIcon;
+    temperatureElement.innerText = `${temperature} °C`;
+    sensationElement.innerText = `${sensation} °C`;
+    humidityElement.innerText = `${humidity}%`;
+    conditionElement.innerText = `${condition}`;
 
     weatherInfo.classList.remove("hidden");
   } catch (error) {
@@ -93,6 +97,28 @@ function getWeatherCondition(code) {
     return "Pancadas de chuva";
   } else {
     return "Condição desconhecida";
+  }
+}
+
+function getWeatherIcon(code) {
+  if (code === 0) {
+    return "☀️";
+  } else if (code === 1) {
+    return "🌤️";
+  } else if (code === 2) {
+    return "⛅";
+  } else if (code === 3) {
+    return "☁️";
+  } else if (code === 45 || code === 48) {
+    return "🌫️";
+  } else if (code === 51 || code === 53 || code === 55) {
+    return "🌦️";
+  } else if (code === 61 || code === 63 || code === 65) {
+    return "🌧️";
+  } else if (code === 80 || code === 81 || code === 82) {
+    return "🌦️";
+  } else {
+    return "🌡️";
   }
 }
 

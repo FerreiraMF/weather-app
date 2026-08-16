@@ -72,10 +72,6 @@ h1 {
   text-align: center;
 }
 
-.hidden {
-  display: none;
-}
-
 .weather-info {
   display: flex;
   flex-direction: column;
@@ -110,4 +106,12 @@ h1 {
 #sensation {
   font-size: 18px;
   font-weight: 700;
+}
+
+.hidden {
+  display: none;
+}
+
+#weather-icon {
+  font-size: 25px;
 }
