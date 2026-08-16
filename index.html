@@ -14,11 +14,21 @@
         <button>Buscar Clima</button>
       </div>
       <div class="weather-info hidden">
-        <h2 id="city-resume"></h2>
-        <p id="temperature"></p>
-        <p id="condition"></p>
-        <p id="humidity"></p>
-        <p id="sensation"></p>
+        <section class="weather-info-top">
+          <h2 id="city-resume"></h2>
+          <p id="temperature"></p>
+          <p id="condition"></p>
+        </section>
+        <section class="weather-info-bottom">
+          <div>
+            <p>Umidade</p>
+            <p id="humidity"></p>
+          </div>
+          <div>
+            <p>Sensação térmica</p>
+            <p id="sensation"></p>
+          </div>
+        </section>
       </div>
     </main>
     <script src="script.js"></script>

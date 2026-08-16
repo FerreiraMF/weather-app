@@ -58,11 +58,11 @@ async function searchWeather() {
 
     const condition = getWeatherCondition(weatherCode);
 
-    cityElement.innerText = `Cidade: ${location.name}`;
-    temperatureElement.innerText = `Temperatura: ${temperature} °C`;
-    sensationElement.innerText = `Sensação térmica: ${sensation} °C`;
-    humidityElement.innerText = `Umidade: ${humidity}%`;
-    conditionElement.innerText = `Condição: ${condition}`;
+    cityElement.innerText = `${location.name}`;
+    temperatureElement.innerText = ` ${temperature} °C`;
+    sensationElement.innerText = ` ${sensation} °C`;
+    humidityElement.innerText = ` ${humidity}%`;
+    conditionElement.innerText = ` ${condition}`;
 
     weatherInfo.classList.remove("hidden");
   } catch (error) {
