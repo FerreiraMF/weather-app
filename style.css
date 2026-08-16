@@ -115,3 +115,13 @@ h1 {
 #weather-icon {
   font-size: 25px;
 }
+
+@media screen and (max-width: 364px) {
+  .weather-info-bottom {
+    gap: 8px;
+  }
+
+  .weather-info-bottom p {
+    font-size: 12px;
+  }
+}
