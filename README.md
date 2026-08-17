@@ -6,7 +6,7 @@ O projeto foi desenvolvido com HTML, CSS e JavaScript e utiliza a API Open-Meteo
 
 ## 📸 Preview
 
-![Weather App](./assets/weather-app.png)
+![Weather App](./assets/desktop.png)
 
 ## 🚀 Funcionalidades
 
@@ -60,6 +60,7 @@ O projeto utiliza a Open-Meteo para:
 
 O projeto também está disponível online:
 
+https://ferreiramf.github.io/weather-app/
 
 ## 👨‍💻 Autor
 
